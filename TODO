@@ -1,0 +1,4 @@
+config (read JSON)
+set up local sftp example server
+maintain SFTP connection
+HTTP server

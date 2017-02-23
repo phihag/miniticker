@@ -1,3 +1,4 @@
+start mt in bup
 select event in bup
 transmit selected event to server
 transmit selected event to SFTP

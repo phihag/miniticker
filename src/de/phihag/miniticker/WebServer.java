@@ -10,6 +10,7 @@ class WebServer {
 
 	public WebServer(Config config) throws IOException {
 		hs = HttpServer.create();
+		hs.setExecutor(java.util.concurrent.Executors.newFixedThreadPool(100));
 		StaticFileHandler.create(hs, "/bup/", config.bupLocation, config.bupIndex);
 		RedirectHandler.create(hs, "/", "/bup/#mt");
 		hs.bind(new InetSocketAddress(config.webPort), 0);

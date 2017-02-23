@@ -1,4 +1,19 @@
-config (read JSON)
-set up local sftp example server
+serve bup
+	dirindex fails
+
 maintain SFTP connection
-HTTP server
+select event in bup
+transmit selected event to server
+transmit selected event to SFTP
+editevent
+update SFTP when editevent
+update scores
+write updated scores to SFTP
+cache scores in server (config option)
+list_event from server
+restartup of server should query event from sftp
+bupdate
+
+write dependency info
+write running ant script 
+HTTP handler: support gzip compression

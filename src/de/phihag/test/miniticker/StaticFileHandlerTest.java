@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import de.phihag.miniticker.StaticFileHandler;
+import de.phihag.miniticker.http.StaticFileHandler;
 
 public class StaticFileHandlerTest {
 

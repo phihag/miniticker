@@ -1,6 +1,6 @@
 package de.phihag.miniticker;
 
-class Config {
+public class Config {
 	public static class SFTPConfig {
 		String server;
 		int port;

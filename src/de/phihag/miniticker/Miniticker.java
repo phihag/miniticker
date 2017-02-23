@@ -5,6 +5,8 @@ import java.io.FileReader;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
+import de.phihag.miniticker.http.WebServer;
+
 public class Miniticker {
 	private static final String CONFIG_FN = "config.json";
 

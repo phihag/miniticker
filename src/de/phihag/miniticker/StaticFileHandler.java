@@ -93,7 +93,7 @@ public class StaticFileHandler implements HttpHandler {
 	void realHandle(HttpExchange he) throws IOException {
 		String method = he.getRequestMethod(); 
 		if (! ("HEAD".equals(method) || "GET".equals(method))) {
-			sendError(he, 501, "Unsupported HTTP method");
+			HTTPUtils.sendError(he, 501, "Unsupported HTTP method");
 			return;
 		}
 		
@@ -128,7 +128,7 @@ public class StaticFileHandler implements HttpHandler {
 			fis = new FileInputStream(canonicalFile);
 		} catch (FileNotFoundException e) {
 			// The file may also be forbidden to us instead of missing, but we're leaking less information this way 
-			sendError(he, 404, "File not found"); 
+			HTTPUtils.sendError(he, 404, "File not found"); 
 			return;
 		}
 
@@ -155,21 +155,10 @@ public class StaticFileHandler implements HttpHandler {
             os.write(buf, 0, n);
         }
 	}
-
-	private void sendError(HttpExchange he, int rCode, String description) throws IOException {
-		String message = "HTTP error " + rCode + ": " + description;
-		byte[] messageBytes = message.getBytes("UTF-8");
-
-		he.getResponseHeaders().set("Content-Type", "text/plain; charset=utf-8");
-		he.sendResponseHeaders(rCode, messageBytes.length);
-		OutputStream os = he.getResponseBody();
-		os.write(messageBytes);
-		os.close();
-	}
 	
 	// This is one function to avoid giving away where we failed 
 	private void reportPathTraversal(HttpExchange he) throws IOException {
-		sendError(he, 400, "Path traversal attempt detected");
+		HTTPUtils.sendError(he, 400, "Path traversal attempt detected");
 	}
 
 	public static String getExt(String path) {

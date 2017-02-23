@@ -13,7 +13,10 @@ public class Miniticker {
 		JsonReader reader = new JsonReader(new FileReader(CONFIG_FN));
 		Config config = (Config) gson.fromJson(reader, Config.class);
 
+		ServerConnection sc = new ServerConnection(config);
 		WebServer ws = new WebServer(config);
 		ws.start();
+
+		sc.run();
 	}
 }

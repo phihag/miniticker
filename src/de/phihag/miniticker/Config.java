@@ -11,5 +11,6 @@ class Config {
 
 	public SFTPConfig sftp;
 	public int webPort;
-	public String bupLocation; 
+	public String bupLocation;
+	public String bupIndex; 
 }

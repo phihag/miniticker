@@ -1,7 +1,3 @@
-serve bup
-	dirindex fails
-
-maintain SFTP connection
 select event in bup
 transmit selected event to server
 transmit selected event to SFTP
@@ -12,8 +8,11 @@ write updated scores to SFTP
 cache scores in server (config option)
 list_event from server
 restartup of server should query event from sftp
-bupdate
+maintain SFTP connection
+	reconnect with timeout
 
-write dependency info
+bupdate
+read and write files in parallel!
+write dependency info (maven?)
 write running ant script 
 HTTP handler: support gzip compression

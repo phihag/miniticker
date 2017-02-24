@@ -13,4 +13,5 @@ public class Config {
 	public int webPort;
 	public String bupLocation;
 	public String bupIndex; 
+	public String dataLocation;
 }

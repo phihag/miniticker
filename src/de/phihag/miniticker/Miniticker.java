@@ -15,8 +15,9 @@ public class Miniticker {
 		JsonReader reader = new JsonReader(new FileReader(CONFIG_FN));
 		Config config = (Config) gson.fromJson(reader, Config.class);
 
+		Event ev = new Event();
 		ServerConnection sc = new ServerConnection(config);
-		WebServer ws = new WebServer(config);
+		WebServer ws = new WebServer(config, ev);
 		ws.start();
 
 		sc.run();

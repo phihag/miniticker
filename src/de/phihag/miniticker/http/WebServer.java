@@ -4,15 +4,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.phihag.miniticker.Config;
+import de.phihag.miniticker.Event;
 import fi.iki.elonen.NanoHTTPD;
 
 public class WebServer extends NanoHTTPD {
 	private NanoHandler[] handlers;
 
-	public WebServer(Config config) {
+	public WebServer(Config config, Event ev) {
 		super(config.webPort);
 		this.handlers = new NanoHandler[] {
 			new StaticFileHandler("/bup/", config.bupLocation, config.bupIndex),
+			new StaticFileHandler("/data/", config.dataLocation, "index.html"),
+			new SelectEventHandler("/select_event", ev),
 			new RedirectHandler("/", "/bup/#mt") 
 		};
 	}

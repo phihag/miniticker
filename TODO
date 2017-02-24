@@ -1,13 +1,15 @@
+update scores
+
 transmit selected event to SFTP
 	editevent
 update SFTP when editevent
-update scores
 write updated scores to SFTP
-list_event from server
 restartup of server should query event from sftp
 maintain SFTP connection
 	reconnect with timeout
+courts
 
+start with an empty match
 config option to not cache scores in server
 bupdate
 read and write files in parallel!

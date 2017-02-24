@@ -1,5 +1,7 @@
 package de.phihag.miniticker;
 
+import de.phihag.miniticker.http.SetPlayersHandler.SetPlayersRequest;
+
 public class Event {
 	public String[] team_names;
 	public String id;
@@ -14,6 +16,7 @@ public class Event {
 	public String notes;
 	public String protest;
 	public String umpires;
+	public boolean team_competition;
 	
 	public void select(Event e) {
 		this.team_names = e.team_names;
@@ -29,5 +32,20 @@ public class Event {
 		this.notes = e.notes;
 		this.protest = e.protest;
 		this.umpires = e.umpires;
+		this.team_competition = e.team_competition;
+	}
+
+	public void setPlayers(SetPlayersRequest spr) {
+		this.backup_players = spr.backup_players;
+		this.present_players = spr.present_players;
+
+		for (Match m : matches) {
+			String match_id = m.setup.match_id;
+			Team[] t = spr.teams_by_match.get(match_id);
+			if (t == null) {
+				continue;
+			}
+			m.setup.teams = t;
+		}
 	}
 }

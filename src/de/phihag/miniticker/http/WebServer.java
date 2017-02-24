@@ -18,6 +18,7 @@ public class WebServer extends NanoHTTPD {
 			new SelectEventHandler("/select_event", ev),
 			new GetEventHandler("/get_event", ev),
 			new SetPlayersHandler("/set_players", ev),
+			new SetScoreHandler("/set_score", ev),
 			new RedirectHandler("/", "/bup/#mt") 
 		};
 	}

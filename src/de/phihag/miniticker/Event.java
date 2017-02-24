@@ -1,6 +1,7 @@
 package de.phihag.miniticker;
 
 import de.phihag.miniticker.http.SetPlayersHandler.SetPlayersRequest;
+import de.phihag.miniticker.http.SetScoreHandler.SetScoreRequest;
 
 public class Event {
 	public String[] team_names;
@@ -17,6 +18,7 @@ public class Event {
 	public String protest;
 	public String umpires;
 	public boolean team_competition;
+	public Court[] courts;
 	
 	public void select(Event e) {
 		this.team_names = e.team_names;
@@ -33,6 +35,7 @@ public class Event {
 		this.protest = e.protest;
 		this.umpires = e.umpires;
 		this.team_competition = e.team_competition;
+		this.courts = e.courts;
 	}
 
 	public void setPlayers(SetPlayersRequest spr) {
@@ -46,6 +49,21 @@ public class Event {
 				continue;
 			}
 			m.setup.teams = t;
+		}
+	}
+
+	public void setScore(SetScoreRequest ssr) {
+		for (Match m : matches) {
+			if (m.setup.match_id.equals(ssr.match_id)) {
+				m.presses_json = ssr.presses_json;
+				m.network_score = ssr.network_score;
+			}
+		}
+		
+		for (Court c : courts) {
+			if (c.court_id.equals(ssr.court_id)) {
+				c.match_id = ssr.match_id;
+			}
 		}
 	}
 }

@@ -16,7 +16,7 @@ import fi.iki.elonen.NanoHTTPD.Method;
 import fi.iki.elonen.NanoHTTPD.Response;
 import fi.iki.elonen.NanoHTTPD.ResponseException;
 
-public class SelectEventHandler extends NanoHandler {
+public class SelectEventHandler extends AbstractHandler {
 	private Event ev;
 
 	public SelectEventHandler(String pathPrefix, Event ev) {

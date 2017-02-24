@@ -15,11 +15,14 @@ public class Miniticker {
 		JsonReader reader = new JsonReader(new FileReader(CONFIG_FN));
 		Config config = (Config) gson.fromJson(reader, Config.class);
 
+		SFTPUploader uploader = new SFTPUploader(config.sftp);
+		Renderer r = new Renderer();
+		ChangeListener cl = new ChangeListener(r, uploader);
 		Event ev = new Event();
-		ServerConnection sc = new ServerConnection(config);
-		WebServer ws = new WebServer(config, ev);
+		ev.setChangeListener(cl);
+		WebServer ws = new WebServer(config, ev, r);
 		ws.start();
 
-		sc.run();
+		uploader.run();
 	}
 }

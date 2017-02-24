@@ -5,20 +5,22 @@ import java.util.regex.Pattern;
 
 import de.phihag.miniticker.Config;
 import de.phihag.miniticker.Event;
+import de.phihag.miniticker.Renderer;
 import fi.iki.elonen.NanoHTTPD;
 
 public class WebServer extends NanoHTTPD {
-	private NanoHandler[] handlers;
+	private AbstractHandler[] handlers;
 
-	public WebServer(Config config, Event ev) {
+	public WebServer(Config config, Event ev, Renderer renderer) {
 		super(config.webPort);
-		this.handlers = new NanoHandler[] {
+		this.handlers = new AbstractHandler[] {
 			new StaticFileHandler("/bup/", config.bupLocation, config.bupIndex),
 			new StaticFileHandler("/data/", config.dataLocation, "index.html"),
 			new SelectEventHandler("/select_event", ev),
 			new GetEventHandler("/get_event", ev),
 			new SetPlayersHandler("/set_players", ev),
 			new SetScoreHandler("/set_score", ev),
+			new RenderHandler("/render/", ev, renderer),
 			new RedirectHandler("/", "/bup/#mt") 
 		};
 	}
@@ -31,7 +33,7 @@ public class WebServer extends NanoHTTPD {
 			path = matcher.group(1);
 		}
 
-		for (NanoHandler h: handlers) {
+		for (AbstractHandler h: handlers) {
 			if (h.matches(path)) {
 				return h.handleAbsPath(path, session);
 			}

@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="jars/commons-io-2.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="jars/nanohttpd-2.3.1.jar" sourcepath="/home/phihag/projects/div/nanohttpd/core/src/main/java/org"/>
+	<classpathentry kind="lib" path="jars/compiler-0.8.18.jar"/>
+	<classpathentry kind="lib" path="jars/guava-16.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -3,12 +3,11 @@ package de.phihag.miniticker.http;
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import fi.iki.elonen.NanoHTTPD.Response;
 
-public abstract class NanoHandler {
+public abstract class AbstractHandler {
 	private String pathPrefix;
 
-	protected NanoHandler(String pathPrefix) {
+	protected AbstractHandler(String pathPrefix) {
 		assert pathPrefix.startsWith("/");
-		assert pathPrefix.endsWith("/");
 		this.pathPrefix = pathPrefix;
 	}
 	

@@ -7,7 +7,7 @@ import fi.iki.elonen.NanoHTTPD.Response;
 /**
  * A handler that only supports GET and POST.
  */
-public abstract class SimpleHandler extends NanoHandler {
+public abstract class SimpleHandler extends AbstractHandler {
 	protected SimpleHandler(String pathPrefix) {
 		super(pathPrefix);
 	}

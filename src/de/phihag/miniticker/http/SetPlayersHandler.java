@@ -18,7 +18,7 @@ import fi.iki.elonen.NanoHTTPD.Method;
 import fi.iki.elonen.NanoHTTPD.Response;
 import fi.iki.elonen.NanoHTTPD.ResponseException;
 
-public class SetPlayersHandler extends NanoHandler {
+public class SetPlayersHandler extends AbstractHandler {
 	private Event ev;
 
 	protected SetPlayersHandler(String pathPrefix, Event ev) {

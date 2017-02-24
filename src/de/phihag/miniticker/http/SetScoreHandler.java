@@ -11,7 +11,7 @@ import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import fi.iki.elonen.NanoHTTPD.Method;
 import fi.iki.elonen.NanoHTTPD.Response;
 
-public class SetScoreHandler extends NanoHandler {
+public class SetScoreHandler extends AbstractHandler {
 	public static class SetScoreRequest {
 		public String match_id;
 		public String court_id;

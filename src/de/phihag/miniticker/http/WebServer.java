@@ -16,6 +16,8 @@ public class WebServer extends NanoHTTPD {
 			new StaticFileHandler("/bup/", config.bupLocation, config.bupIndex),
 			new StaticFileHandler("/data/", config.dataLocation, "index.html"),
 			new SelectEventHandler("/select_event", ev),
+			new GetEventHandler("/get_event", ev),
+			new SetPlayersHandler("/set_players", ev),
 			new RedirectHandler("/", "/bup/#mt") 
 		};
 	}

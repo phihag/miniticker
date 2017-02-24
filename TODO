@@ -1,6 +1,5 @@
-transmit selected event to server
 transmit selected event to SFTP
-editevent
+	editevent
 update SFTP when editevent
 update scores
 write updated scores to SFTP

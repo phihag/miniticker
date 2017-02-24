@@ -17,6 +17,7 @@ import com.jcraft.jsch.SftpException;
 import de.phihag.miniticker.Config.SFTPConfig;
 
 public class SFTPUploader implements Runnable {
+
 	private SFTPConfig config;
 	private BlockingQueue<FileState> q;
 	private FileState cur;
@@ -27,6 +28,7 @@ public class SFTPUploader implements Runnable {
 	}
 	
 	public void run() {
+		
 		for (;;) {
 			try {
 				loop();
@@ -36,6 +38,11 @@ public class SFTPUploader implements Runnable {
 				e.printStackTrace();
 			} catch (SftpException e) {
 				e.printStackTrace();
+			}
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
 			}
 		}
 	}

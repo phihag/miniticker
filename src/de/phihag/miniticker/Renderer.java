@@ -15,6 +15,7 @@ import org.apache.commons.io.IOUtils;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
+import com.google.gson.Gson;
 
 public class Renderer {
 	private Mustache matchTemplate;
@@ -41,7 +42,7 @@ public class Renderer {
 	
 	public String renderMatch(Event e, Match m) {
 		Map<String,String> ctx = new HashMap<>();
-		ctx.put("presses_json", m.presses_json);
+		ctx.put("match_json",  (new Gson()).toJson(m));
 		ctx.put("match_name", m.setup.match_name);
 		
 		for (int i = 0;i < m.setup.teams.length;i++) {
@@ -92,6 +93,7 @@ public class Renderer {
 	
 		ctx.put("starttime", e.starttime);
 		ctx.put("location", e.location);
+		ctx.put("event_json",  (new Gson()).toJson(e));		 
 		
 		StringWriter sw = new StringWriter();
 		overviewTemplate.execute(sw, ctx);

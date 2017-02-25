@@ -2,11 +2,11 @@ package de.phihag.miniticker;
 
 public class Config {
 	public static class SFTPConfig {
-		String server;
-		int port;
-		String directory;
-		String username;
-		String password;
+		public String server;
+		public int port;
+		public String directory;
+		public String username;
+		public String password;
 	}
 
 	public SFTPConfig sftp;

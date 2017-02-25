@@ -1,8 +1,6 @@
-package de.phihag.miniticker;
+package de.phihag.miniticker.sftp;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -19,12 +17,12 @@ import de.phihag.miniticker.Config.SFTPConfig;
 public class SFTPUploader implements Runnable {
 
 	private SFTPConfig config;
-	private BlockingQueue<FileState> q;
-	private FileState cur;
+	private BlockingQueue<SFTPTask> q;
+	private SFTPTask cur;
 	
 	public SFTPUploader(SFTPConfig config) {
 		this.config = config;
-		this.q = new LinkedBlockingQueue<FileState>();
+		this.q = new LinkedBlockingQueue<SFTPTask>();
 	}
 	
 	public void run() {
@@ -72,19 +70,18 @@ public class SFTPUploader implements Runnable {
 				assert (cur != null);
 			}
 
-			InputStream bais= new ByteArrayInputStream(cur.content.getBytes("UTF-8"));
-			channelSftp.put(bais, cur.filename);
+			cur.run(channelSftp);
 			
 			cur = null;
 		}
 	}
 
 	/**
-	 * Requests an update of the specified file. Will run in the background.
+	 * Requests code to run on the SFTP thread.
 	 * This function can be called from any thread.
-	 * @param fs The file and contents to write
+	 * @param st The task to do
 	 */
-	public void set(FileState fs) {
-		q.offer(fs);
+	public void schedule(SFTPTask st) {
+		q.offer(st);
 	}
 }

@@ -2,6 +2,7 @@ package de.phihag.miniticker;
 
 import de.phihag.miniticker.http.SetPlayersHandler.SetPlayersRequest;
 import de.phihag.miniticker.http.SetScoreHandler.SetScoreRequest;
+import de.phihag.miniticker.sftp.SFTPChangeListener;
 
 public class Event {
 	public String[] team_names;
@@ -19,24 +20,28 @@ public class Event {
 	public String umpires;
 	public boolean team_competition;
 	public Court[] courts;
-	private transient ChangeListener cl;
-	
+	private transient SFTPChangeListener cl;
+
+	public void load(Event loaded) {
+		this.team_names = loaded.team_names;
+		this.id = loaded.id;
+		this.league_key = loaded.league_key;
+		this.matches = loaded.matches;
+		this.location = loaded.location;
+		this.starttime = loaded.starttime;
+		this.date = loaded.date;
+		this.all_players = loaded.all_players;
+		this.backup_players = loaded.backup_players;
+		this.present_players = loaded.present_players;
+		this.notes = loaded.notes;
+		this.protest = loaded.protest;
+		this.umpires = loaded.umpires;
+		this.team_competition = loaded.team_competition;
+		this.courts = loaded.courts;
+	}
+
 	public void select(Event e) {
-		this.team_names = e.team_names;
-		this.id = e.id;
-		this.league_key = e.league_key;
-		this.matches = e.matches;
-		this.location = e.location;
-		this.starttime = e.starttime;
-		this.date = e.date;
-		this.all_players = e.all_players;
-		this.backup_players = e.backup_players;
-		this.present_players = e.present_players;
-		this.notes = e.notes;
-		this.protest = e.protest;
-		this.umpires = e.umpires;
-		this.team_competition = e.team_competition;
-		this.courts = e.courts;
+		load(e);
 		cl.updateIndex(this);
 		for (Match m: matches) {
 			cl.updateMatch(this, m);
@@ -56,6 +61,7 @@ public class Event {
 			m.setup.teams = t;
 			cl.updateMatch(this, m);
 		}
+		cl.updateIndex(this);
 	}
 
 	public void setScore(SetScoreRequest ssr) {
@@ -74,7 +80,7 @@ public class Event {
 		}
 	}
 
-	public void setChangeListener(ChangeListener cl) {
+	public void setChangeListener(SFTPChangeListener cl) {
 		this.cl = cl;
 	}
 	

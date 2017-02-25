@@ -1,5 +1,7 @@
 package de.phihag.miniticker;
 
+import java.util.Arrays;
+
 import de.phihag.miniticker.http.SetPlayersHandler.SetPlayersRequest;
 import de.phihag.miniticker.http.SetScoreHandler.SetScoreRequest;
 import de.phihag.miniticker.sftp.SFTPChangeListener;
@@ -21,6 +23,7 @@ public class Event {
 	public boolean team_competition;
 	public Court[] courts;
 	private transient SFTPChangeListener cl;
+	private transient int[] prevScore; // Cache of the last match score. Can be set to null to invalidate.
 
 	public void load(Event loaded) {
 		this.team_names = loaded.team_names;
@@ -38,6 +41,7 @@ public class Event {
 		this.umpires = loaded.umpires;
 		this.team_competition = loaded.team_competition;
 		this.courts = loaded.courts;
+		this.prevScore = null;
 	}
 
 	public void select(Event e) {
@@ -72,11 +76,17 @@ public class Event {
 				cl.updateMatch(this, m);
 			}
 		}
-		
+
 		for (Court c : courts) {
 			if (c.court_id.equals(ssr.court_id)) {
 				c.match_id = ssr.match_id;
 			}
+		}
+
+		int[] newScore = matchScore();
+		if ((prevScore == null) || !Arrays.equals(newScore, prevScore)) {
+			prevScore = newScore;
+			cl.updateIndex(this);
 		}
 	}
 

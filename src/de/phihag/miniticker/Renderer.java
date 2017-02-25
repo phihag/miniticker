@@ -6,8 +6,10 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
@@ -20,6 +22,7 @@ import com.google.gson.Gson;
 public class Renderer {
 	private Mustache matchTemplate;
 	private Mustache overviewTemplate;
+	private Mustache livescoreTemplate;
 	
 	private Mustache makeTemplate(String fn) {
 		InputStream is = this.getClass().getResourceAsStream(fn);
@@ -38,6 +41,7 @@ public class Renderer {
 	public Renderer() {
 		matchTemplate = makeTemplate("MatchTemplate.html");
 		overviewTemplate = makeTemplate("OverviewTemplate.html");
+		livescoreTemplate = makeTemplate("LivescoreTemplate.html");
 	}
 	
 	public String renderMatch(Event e, Match m) {
@@ -97,6 +101,23 @@ public class Renderer {
 		
 		StringWriter sw = new StringWriter();
 		overviewTemplate.execute(sw, ctx);
+		return sw.toString();
+	}
+
+	public String renderLivescore(Event e) {
+		Map<String, Object> ctx = new HashMap<>();
+		int matchCount = e.matches.length;
+		List<Map<String, String>> matchNums = new ArrayList<>();
+		for (int i = 0;i < matchCount;i++) {
+			Map<String,String> elmap = new HashMap<>();
+			elmap.put("num", String.valueOf(i + 1));
+			matchNums.add(elmap);
+		}
+		ctx.put("matchnums", matchNums);
+		
+		StringWriter sw = new StringWriter();
+		livescoreTemplate.execute(sw, ctx);
+
 		return sw.toString();
 	}
 }

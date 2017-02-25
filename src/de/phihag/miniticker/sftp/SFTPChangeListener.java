@@ -30,5 +30,8 @@ public class SFTPChangeListener {
 	public void updateIndex(Event e) {
 		String html = renderer.renderOverview(e);
 		uploader.schedule(new WriteFile(Filenames.OVERVIEW_FILENAME, html));
+
+		String liveHtml = renderer.renderLivescore(e);
+		uploader.schedule(new WriteFile(Filenames.LIVESCORE_FILENAME, liveHtml));
 	}
 }

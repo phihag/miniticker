@@ -34,6 +34,15 @@ public class RenderHandler extends SimpleHandler {
 				return NanoHTTPD.newFixedLengthResponse(HTTPUtils.translateCode(200), "text/html", html);
 			}
 		}
+
+		if (relPath.equals("Livescore.html")) {
+			String html = renderer.renderLivescore(ev);
+			return NanoHTTPD.newFixedLengthResponse(HTTPUtils.translateCode(200), "text/html", html);
+		}
+		if (relPath.equals("Gesamtstand.html")) {
+			String html = renderer.renderOverview(ev);
+			return NanoHTTPD.newFixedLengthResponse(HTTPUtils.translateCode(200), "text/html", html);
+		}
 		
 		return HTTPUtils.error(404, "Not found");
 	}

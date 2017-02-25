@@ -1,3 +1,7 @@
+dynamic calculation of curMatches!
+
+automatically find one server when multiple instances running?
+
 config option to not cache scores in server
 bupdate
 read and write files in parallel
